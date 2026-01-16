@@ -121,8 +121,7 @@ export interface BusinessAnalysisOutput {
   processMiningScriptOutline: ScriptOutline;
   predictiveAnalyticsProcessScriptOutline: ScriptOutline;
   predictiveAnalyticsMarketScriptOutline: ScriptOutline;
-  verticalAILayoutDescription: string; // New field for UI concept description
-  vertLayoutDescription: string;       // New field for UI concept description
+  verticalAILayoutDescription: string; // Now holds the refined, blended UI description
   brandComparisonSimulation: BrandComparisonSimulation; // New field for combined simulation
 }
 

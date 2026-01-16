@@ -81,15 +81,25 @@ export async function performBusinessAnalysis(userPrompt: string): Promise<Busin
       *   **Core Process Mining Engine:** Ingests event logs, performs basic process discovery, identifies KPIs (cycle time, throughput), and suggests optimization areas.
       *   **Predictive Analytics Module (Process-focused):** Extends process mining to train ML models on historical data, forecasts metrics (e.g., completion time, resource needs), and generates alerts/recommendations.
       *   **Predictive Analytics Module (Market/Consumer-focused):** Focuses on market swings and consumer pain points, providing insights and solutions before they happen.
-  11. **Design two conceptual UI layouts for brand comparison ("Vertical AI" vs "Vert").**
-      *   For "Vertical AI", describe a corporate, button-up, sky-is-the-limit UI feel.
-      *   For "Vert", describe a more relaxed, "Birkenstock-wearing hipster" UI feel.
-  12. **Run a simulated focus group in Kansas (rural and urban participants) comparing these two branding concepts.**
+  11. **Run a simulated focus group in Kansas (rural and urban participants) comparing "Vertical AI" (corporate, button-up, sky-is-the-limit) and "Vert" (relaxed, Birkenstock-wearing hipster) branding concepts.**
       *   Generate a list of diverse participants (names, personas, location - e.g., Topeka, KS (Rural); Kansas City, MO (Urban)).
       *   Provide a timestamped dialogue log from the participants discussing and comparing the two branding concepts, with references to which brand they are reacting to.
       *   Generate a summary of the feedback for "Vertical AI" (overall sentiment, key pros/cons, recommendations).
       *   Generate a summary of the feedback for "Vert" (overall sentiment, key pros/cons, recommendations).
       *   Provide an overall recommendation for which brand to pursue based on the simulated focus group.
+  12. **Based on the focus group's findings and the blended vision of 'Vertical AI' heavy professional tone with interactive and energetic support, design a single, refined conceptual UI layout description for the "Vertical AI" platform.**
+      *   Describe a UI that is professional and data-rich, yet highly interactive, engaging, and modern, incorporating elements that appeal to both seasoned executives and tech-savvy users, embodying a "button-up product with a Birkenstock UX."
+      *   **Crucially, this UI description must now include the following functionalities and design considerations:**
+          *   **Annotation editing and filtering**: To create visual feedback for tasks and allow users to refine data inputs or model outputs.
+          *   **Machine learning-driven task automation options**: Clearly visible and configurable sections for setting up and monitoring automated workflows.
+          *   **Dynamic task scoping**: The UI should visually represent how tasks can grow and adapt alongside business needs.
+          *   **Integrated onboarding**: A seamless, intuitive initial user experience.
+          *   **Enhanced interactive elements**: General UI components that respond dynamically to user input and provide rich visual feedback.
+          *   **Quick win recommendations**: Prominently displayed, actionable insights that highlight immediate areas for improvement.
+          *   **User-adjustable workflow and rules**: Dedicated interface for users to define and modify AI system logic without coding.
+          *   **Advanced feedback mechanisms**: A system for users to provide feedback directly to the AI, allowing it to analyze its own performance, identify gaps, suggest changes, and even "alter its own code" conceptually (i.e., generate updated configurations or refined scripts based on feedback).
+          *   **'Digital man-meet' concept**: Represented as a collaborative workspace within the UI where human experts and AI agents interact, share insights, and co-create solutions seamlessly.
+      *   Ensure its 'creativity' in proposing solutions is based on **plausibility, viability, and market projections.**
 
   The output MUST be a single JSON object strictly adhering to the 'BusinessAnalysisOutput' TypeScript interface. Do NOT include any introductory or concluding text outside the JSON.
   Ensure all string fields in the JSON are properly escaped if they contain special characters.
@@ -276,8 +286,7 @@ export async function performBusinessAnalysis(userPrompt: string): Promise<Busin
               },
               required: ["name", "description", "keyFunctions", "inputOutput", "dependencies", "potentialOptimizations"],
             },
-            verticalAILayoutDescription: { type: Type.STRING }, // New
-            vertLayoutDescription: { type: Type.STRING },       // New
+            verticalAILayoutDescription: { type: Type.STRING }, // Now holds the *blended* UI description
             brandComparisonSimulation: {                        // New
               type: Type.OBJECT,
               properties: {
@@ -352,9 +361,8 @@ export async function performBusinessAnalysis(userPrompt: string): Promise<Busin
             "processMiningScriptOutline",
             "predictiveAnalyticsProcessScriptOutline",
             "predictiveAnalyticsMarketScriptOutline",
-            "verticalAILayoutDescription", // New required field
-            "vertLayoutDescription",       // New required field
-            "brandComparisonSimulation",   // New required field
+            "verticalAILayoutDescription", // Now required, singular
+            "brandComparisonSimulation",   // Required
           ],
         },
       },

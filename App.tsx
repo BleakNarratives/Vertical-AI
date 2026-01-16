@@ -4,22 +4,21 @@ import { BusinessAnalysisOutput, AIStudio } from './types'; // Import AIStudio
 import LoadingSpinner from './components/LoadingSpinner';
 import ApiKeyPrompt from './components/ApiKeyPrompt';
 import AnalysisSection from './components/AnalysisSection';
-import VerticalAILayoutDisplay from './components/VerticalAILayoutDisplay'; // New import
-import VertLayoutDisplay from './components/VertLayoutDisplay';             // New import
+import VerticalAILayoutDisplay from './components/VerticalAILayoutDisplay'; // Consolidated UI import
 
 // Removed the conflicting local declaration of AIStudio and declare global block.
 // AIStudio is now imported from types.ts.
 // The global declaration for 'aistudio' on 'Window' is implicitly handled by TypeScript
 // when `AIStudio` is imported and `window.aistudio` is cast.
 
-type BrandView = 'analysis' | 'verticalAI' | 'vert';
+type BrandView = 'analysis' | 'blendedUI'; // Simplified to just analysis or the blended UI
 
 const App: React.FC = () => {
   const [analysisOutput, setAnalysisOutput] = useState<BusinessAnalysisOutput | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [apiKeySelected, setApiKeySelected] = useState(false);
-  const [currentBrandView, setCurrentBrandView] = useState<BrandView>('analysis'); // New state for brand view
+  const [currentBrandView, setCurrentBrandView] = useState<BrandView>('analysis'); // Default to analysis
 
   const checkApiKey = useCallback(async () => {
     // Cast window.aistudio to AIStudio to ensure type safety.
@@ -44,7 +43,7 @@ const App: React.FC = () => {
     setAnalysisOutput(null);
     setCurrentBrandView('analysis'); // Reset view to analysis when generating new content
 
-    // This is the original prompt from the user, which will be fed to Gemini for analysis generation.
+    // This is the updated prompt, requesting a single blended UI description.
     const userRequestPrompt = `
       By using tools like celonis and disco we can create a smart python script for process identification, identification of areas where improvement is needed, and creating architectures intended to solve known and unknown weak areas in business models and workflows in commercial/industrial businesses large and small, which can map out real world cost cutting strategies, increase productivity, minimize hurdles, bottlenecks, and blockers, and pinpoint viables, profitable strategies, and lucrative alternatives for business in areas they could stand to benefit by improving. Top dollar, bottom dollar - the only thing that matters to these stuffed suits is dollars
 
@@ -62,7 +61,20 @@ const App: React.FC = () => {
 
       Finally, provide structured outlines for three Python scripts: a core process mining engine, a module for predictive analytics in process data, and a module for predictive analytics in market swings and consumer pain points.
 
-      Furthermore, design two conceptual UI layouts for brand comparison ("Vertical AI" vs "Vert"). For "Vertical AI", describe a corporate, button-up, sky-is-the-limit UI feel. For "Vert", describe a more relaxed, "Birkenstock-wearing hipster" UI feel. Run a simulated focus group in Kansas (rural and urban participants) comparing these two branding concepts, including a timestamped dialogue log and a summary of feedback for each brand, plus an overall recommendation.
+      Furthermore, run a simulated focus group in Kansas (rural and urban participants) comparing "Vertical AI" (corporate, button-up, sky-is-the-limit) and "Vert" (relaxed, Birkenstock-wearing hipster) branding concepts, including a timestamped dialogue log and a summary of feedback for each brand, plus an overall recommendation.
+
+      Based on the focus group's findings and the blended vision of 'Vertical AI' heavy professional tone with interactive and energetic support, design a single, refined conceptual UI layout description for the "Vertical AI" platform. Describe a UI that is professional and data-rich, yet highly interactive, engaging, and modern, incorporating elements that appeal to both seasoned executives and tech-savvy users, embodying a "button-up product with a Birkenstock UX."
+      Crucially, this UI description must now include the following functionalities and design considerations:
+      - Annotation editing and filtering to create visual feedback for tasks.
+      - Task automation options that are machine learning-driven.
+      - Tasks grow alongside the business in scope, and the UI should represent this dynamic adaptability.
+      - Integrated onboarding flows for new users.
+      - Enhanced interactive elements for rich user engagement.
+      - Prominently displayed 'Quick Win' recommendations for immediate impact.
+      - User-adjustable workflow and rules for system customization.
+      - Advanced feedback mechanisms for users to interact with the AI, allowing it to suggest changes, analyze its own problems, find gaps, and conceptually alter its own code for self-improvement.
+      - A 'Digital man-meet' concept, representing a collaborative workspace where human and AI expertise converges seamlessly.
+      Ensure its 'creativity' in proposing solutions is based on plausibility, viability, and market projections.
 
       We don't aim to demonstrate how AI can increase performance and decrease overhead. We aim to make these executives wonder how they ever got along without them!!
 
@@ -92,7 +104,7 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     if (loading) {
-      return <LoadingSpinner message="Analyzing business models, comparing frameworks, running simulations, and crafting strategic insights..." />;
+      return <LoadingSpinner message="Synthesizing strategy, blending UI concepts, and preparing your next-gen insights..." />;
     }
 
     if (error) {
@@ -123,10 +135,8 @@ const App: React.FC = () => {
     }
 
     // Render the specific brand layout or the analysis sections
-    if (currentBrandView === 'verticalAI' && analysisOutput.verticalAILayoutDescription) {
+    if (currentBrandView === 'blendedUI' && analysisOutput.verticalAILayoutDescription) {
       return <VerticalAILayoutDisplay description={analysisOutput.verticalAILayoutDescription} />;
-    } else if (currentBrandView === 'vert' && analysisOutput.vertLayoutDescription) {
-      return <VertLayoutDisplay description={analysisOutput.vertLayoutDescription} />;
     } else {
       return (
         <div className="space-y-12">
@@ -138,9 +148,8 @@ const App: React.FC = () => {
           <AnalysisSection title="Framework Comparisons" content={analysisOutput?.frameworkComparisons} type="frameworks" />
           <AnalysisSection title="Simulation Results" content={analysisOutput?.simulationResults} type="simulations" />
           <AnalysisSection title="Six Hat Exercise" content={analysisOutput?.sixHatExercise} type="sixHats" />
-          <AnalysisSection title="Brand Concept: Vertical AI Layout Description" content={analysisOutput?.verticalAILayoutDescription} type="text" />
-          <AnalysisSection title="Brand Concept: Vert Layout Description" content={analysisOutput?.vertLayoutDescription} type="text" />
           <AnalysisSection title="Brand Comparison Focus Group Simulation" content={analysisOutput?.brandComparisonSimulation} type="brandComparison" />
+          <AnalysisSection title="Refined Vertical AI Layout Description" content={analysisOutput?.verticalAILayoutDescription} type="text" />
           <AnalysisSection title="Core Process Mining Engine Outline" content={analysisOutput?.processMiningScriptOutline} type="scriptOutline" />
           <AnalysisSection title="Predictive Analytics (Process) Script Outline" content={analysisOutput?.predictiveAnalyticsProcessScriptOutline} type="scriptOutline" />
           <AnalysisSection title="Predictive Analytics (Market & Consumer) Script Outline" content={analysisOutput?.predictiveAnalyticsMarketScriptOutline} type="scriptOutline" />
@@ -174,20 +183,12 @@ const App: React.FC = () => {
               Full Analysis
             </button>
             <button
-              onClick={() => setCurrentBrandView('verticalAI')}
+              onClick={() => setCurrentBrandView('blendedUI')}
               className={`py-2 px-6 rounded-full text-sm font-semibold transition-colors duration-200 ${
-                currentBrandView === 'verticalAI' ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                currentBrandView === 'blendedUI' ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              "Vertical AI" Layout (Draft)
-            </button>
-            <button
-              onClick={() => setCurrentBrandView('vert')}
-              className={`py-2 px-6 rounded-full text-sm font-semibold transition-colors duration-200 ${
-                currentBrandView === 'vert' ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              "Vert" Layout (Draft)
+              "Vertical AI" UI (Blended Draft)
             </button>
           </div>
         )}

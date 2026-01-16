@@ -1,6 +1,6 @@
 {
   "name": "Vertical AI",
-  "description": "An interactive application to generate, compare, and simulate AI integration strategies for business optimization across various industries. Includes architectural scaffolding, tech stack selection, framework comparisons, simulation likelihoods, a 6-hat exercise, an executive summary, a high-level SaaS architecture proposal, Python script outlines for process mining and predictive analytics, and a brand comparison simulation with focus group feedback.",
+  "description": "An interactive application to generate, compare, and simulate AI integration strategies for business optimization. Features comprehensive analysis, architectural scaffolding, tech stack selection, framework comparisons, simulation likelihoods, a 6-hat exercise, executive summary, high-level SaaS architecture, Python script outlines for process mining and predictive analytics, and a dynamic, blended user interface that combines professional depth with engaging interactivity.",
   "requestFramePermissions": [
     "camera",
     "microphone"
